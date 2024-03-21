@@ -1,13 +1,27 @@
 /* Copyright (c) 2024 Francis Guindon */
 
+int delay_ms = 500;
+int bus_width;
+int data[] = {D0, D1, D2, D3, D4, D5, D6, D7, D8};
+
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(9600);
+  bus_width = sizeof(data)/sizeof(data[0]);
+  
+  for (int i = 0; i < bus_width; ++i) {
+    pinMode(data[i], OUTPUT);
+  }
 }
 
 
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000);
+  for (int i = 0; i < bus_width; ++i) {
+    digitalWrite(data[i], HIGH);
+    delay(delay_ms);
+  }
+
+  for (int i = 0; i < bus_width; ++i) {
+    digitalWrite(data[i], LOW);
+    delay(delay_ms);
+  }
 }
